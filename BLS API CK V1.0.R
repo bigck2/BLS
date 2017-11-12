@@ -1,5 +1,6 @@
 
 
+
 # Load Packages -----------------------------------------------------------
 library(jsonlite)
 library(httr)
@@ -27,9 +28,9 @@ my_series_id <- "SMU48191240000000001"
 # NOTE this was the confusing part. The API wants the seriesid to be surrounded with []
 # even for a single series, but the other parameters it does NOT want surrounded by []
 my_payload <- paste0("{\"seriesid\":[\"", my_series_id, "\"],
-                      \"startyear\":\"", my_start_year, "\",
-                      \"endyear\":\"", my_end_year, "\",
-                      \"registrationkey\":\"", my_registration_key, "\"}" )
+                     \"startyear\":\"", my_start_year, "\",
+                     \"endyear\":\"", my_end_year, "\",
+                     \"registrationkey\":\"", my_registration_key, "\"}" )
 
 # writeLines(my_payload)
 
@@ -47,11 +48,11 @@ rm(url, my_payload, my_series_id, my_start_year, my_end_year, my_registration_ke
 
 # A list of some BLS Series
 some_series <- c("SMS02112600000000001", "SMS02218200000000001", "SMS04223800000000001", 
-                  "SMS04294200000000001", "SMS04380600000000001", "SMS04391400000000001", 
-                  "SMS04460600000000001", "SMS04497400000000001", "SMU02112600000000001", 
-                  "SMU02218200000000001", "SMU04223800000000001", "SMU04294200000000001", 
-                  "SMU04380600000000001", "SMU04391400000000001", "SMU04434200000000001", 
-                  "SMU04460600000000001", "SMU04497400000000001")
+                 "SMS04294200000000001", "SMS04380600000000001", "SMS04391400000000001", 
+                 "SMS04460600000000001", "SMS04497400000000001", "SMU02112600000000001", 
+                 "SMU02218200000000001", "SMU04223800000000001", "SMU04294200000000001", 
+                 "SMU04380600000000001", "SMU04391400000000001", "SMU04434200000000001", 
+                 "SMU04460600000000001", "SMU04497400000000001")
 
 # Create list object to hold series of interest and parameters (years, registrationkey)
 my_payload <- list(seriesid = some_series,
@@ -122,8 +123,8 @@ the_data$date <- mdy(date_strings)
 
 # Select only the relevant columns
 the_data <- the_data %>%
-            select(series_id, date, value) %>%
-            mutate(value = as.numeric(value) * 1000) # Probably best to mutliply by 1,000 here
+  select(series_id, date, value) %>%
+  mutate(value = as.numeric(value) * 1000) # Probably best to mutliply by 1,000 here
 
 rm(months, date_strings)
 
@@ -140,6 +141,8 @@ ggplot(data = the_data, aes(x = date, y = value)) +
        title = "Some Series Desctiption and Name",
        caption = "Buruea of Labor Statistics") +
   scale_y_continuous(labels = scales::comma)
+
+
 
 
 
