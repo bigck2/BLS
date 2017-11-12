@@ -1,11 +1,13 @@
 
 
+
+# Load Packages -----------------------------------------------------------
 library(tidyverse)
 library(stringr)
 
+
 # Parent Directory
 # https://download.bls.gov/pub/time.series/sm/
-
 
 
 # This link is for the series data
@@ -13,6 +15,8 @@ url <- "https://download.bls.gov/pub/time.series/sm/sm.series"
 
 # Read in series data
 series <- read_delim(url, delim = "\t")
+
+
 
 
 # Link with descriptions of data types:
@@ -46,9 +50,6 @@ series <- left_join(series, temp)
 rm(temp)
 
 
-
-
-
 # Supersector
 url <- "https://download.bls.gov/pub/time.series/sm/sm.supersector"
 
@@ -71,33 +72,36 @@ rm(temp, url)
 
 
 
-# Data --------------------------------------------------------------------
+# Clean up ----------------------------------------------------------------
 
-url <- "https://download.bls.gov/pub/time.series/sm/sm.data.0.Current"
-
-big_data <- read_delim(url, delim = "\t")
-
-big_data <- big_data %>%
-            mutate(series = str_replace_all(string = series_id, 
-                                            pattern = " ", 
-                                            replacement = ""))
+# Remove trailing spaces from series id
+series$series_id <- str_trim(series$series_id)
 
 
 
+# Get Relevant Series -----------------------------------------------------
 
-# Example to get Dallas ---------------------------------------------------
+my_series <- series %>%
+             filter(data_type_code == "01",
+                    area_code == "00000",
+                    supersector_code == "00",
+                    seasonal == "U")
+
+some_series <- as.character(my_series$series_id)
 
 
 
-# This is the ID for the 
-# All EMployees, In Thousands
-# Total Nonfarm
-# Dallas-Plano-Irving, TX Metroplitan Division
-# series
-my_series <- "SMU48191240000000001"
+# Join the states back
+test <- left_join(the_data, series)
 
-my_data <- big_data %>%
-            filter(series == my_series)
+test <- filter(test, date == max(date))
+
+
+
+ggplot(data = test, aes(x = date, y = value, color = state_name, fill = state_name)) +
+  geom_point() +
+  geom_line() +
+  scale_y_continuous(labels = scales::comma)
 
 
 

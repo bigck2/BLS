@@ -1,6 +1,5 @@
 
 
-
 # Load Packages -----------------------------------------------------------
 library(jsonlite)
 library(httr)
