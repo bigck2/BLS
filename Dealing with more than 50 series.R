@@ -1,4 +1,4 @@
-
+ 
 
 # Load Packages -----------------------------------------------------------
 library(jsonlite)
@@ -6,7 +6,6 @@ library(httr)
 library(stringr)
 library(lubridate)
 library(tidyverse)
-
 
 
 # The BLS URL
@@ -51,10 +50,7 @@ data_list <- vector("list", my_groups)
 # This loop will create the character vectors in groups of 50 (or fewer)
 for (i in 1:my_groups){
   
-  # my_series <- some_series[i * 1:50]  # I THINK THIS IS THE PROBLEM
-  
   my_series <- some_series[seq(from = (i * 50) - 49, to = i * 50)]
-  
   
   my_series <- my_series[!is.na(my_series)]
 
