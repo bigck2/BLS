@@ -22,8 +22,11 @@ my_registration_key <- "416fd9b4813e4a50a808441c4a16d5c9"
 # Longer series -----------------------------------------------------------
 
 # Read in a CSV file with a list of series
-some_series <- read_csv("one hundred series.csv") %>%
-               pull(series_id)    # this is to convert the tbl column into a character vector
+# some_series <- read_csv("one hundred series.csv") %>%
+#                pull(series_id)    # this is to convert the tbl column into a character vector
+
+
+
 
 # How many series do we have here?
 my_length <- length(some_series)
