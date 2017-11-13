@@ -23,14 +23,14 @@ my_registration_key <- "416fd9b4813e4a50a808441c4a16d5c9"
 # Longer series -----------------------------------------------------------
 
 # Read in a CSV file with a list of series
-some_series <- read_csv("seventy series.csv") %>%
+some_series <- read_csv("one hundred series.csv") %>%
                pull(series_id)    # this is to convert the tbl column into a character vector
 
 # How many series do we have here?
 my_length <- length(some_series)
 
 # # How many groups of 50 can we make evenly?
-# my_length %/% 50# 
+# my_length %/% 50
 # # How many elements will remain left over?
 # my_length %% 50
 
@@ -51,7 +51,10 @@ data_list <- vector("list", my_groups)
 # This loop will create the character vectors in groups of 50 (or fewer)
 for (i in 1:my_groups){
   
-  my_series <- some_series[i * 1:50]
+  # my_series <- some_series[i * 1:50]  # I THINK THIS IS THE PROBLEM
+  
+  my_series <- some_series[seq(from = (i * 50) - 49, to = i * 50)]
+  
   
   my_series <- my_series[!is.na(my_series)]
 
@@ -99,6 +102,22 @@ the_data <- dplyr::bind_rows(data_list)
 
 
 
+
+# Process data ------------------------------------------------------------
+
+# Drop the "M" character from the period column
+months <- str_replace(string = the_data$period, pattern = "M", replacement = "")
+
+# Create a vector of date strings
+date_strings <- paste(months, "01", the_data$year, sep = "/")
+
+# convert to actual dates with lubridate::mdy()
+the_data$date <- mdy(date_strings)
+
+# Select only the relevant columns
+the_data <- the_data %>%
+  select(series_id, date, value) %>%
+  mutate(value = as.numeric(value) * 1000) # Probably best to mutliply by 1,000 here
 
 
 
