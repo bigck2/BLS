@@ -97,15 +97,22 @@ unique(series$seasonal_text)
 my_series <- series %>%
              filter(data_type_text == "ALL EMPLOYEES, THOUSANDS",
                     supersector_name == "Total nonfarm",
-                    seasonal_text == "Not Seasonally Adjusted")
+                    seasonal_text == "Seasonally Adjusted")
 
 # Convert series_id to a character string
-my_series <- str_trim(as.character(my_series[1,1]))
+my_series_id <- str_trim(as.character(my_series[1,1]))
 
 
 
 
 
+# Final Output ------------------------------------------------------------
+
+
+dput(my_series_id)
+"CES0000000001"
+
+my_series_id <- "CES0000000001"
 
 
 

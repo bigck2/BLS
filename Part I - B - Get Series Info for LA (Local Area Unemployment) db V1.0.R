@@ -83,7 +83,7 @@ rm(temp)
 
 
 
-<<<<<<< HEAD
+
 # state_region_division
 url <- "https://download.bls.gov/pub/time.series/la/la.state_region_division"
 
@@ -92,9 +92,9 @@ temp <- read_delim(url, delim = "\t")
 series <- left_join(series, temp)
 
 rm(temp)
-=======
 
->>>>>>> 3c11c15f4d46aa83c240ae98a91bc6556a971e1a
+
+
 
 
 
