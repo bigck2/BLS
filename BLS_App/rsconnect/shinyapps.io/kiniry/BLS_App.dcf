@@ -1,0 +1,12 @@
+name: BLS_App
+title: BLS_App
+username:
+account: kiniry
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 236840
+bundleId: 1081576
+url: https://kiniry.shinyapps.io/BLS_App/
+when: 1510943027.77682
+asMultiple: FALSE
+asStatic: FALSE

@@ -1,4 +1,7 @@
 
+library(tidyverse)
+
+
 
 # Load function to pull single series from API
 source('Function - bls_get_single_series v1.0.R', echo=FALSE)
