@@ -46,9 +46,6 @@ ggplot(the_data, aes(x = date, y = mom_change, fill = positive)) +
   geom_text(aes(label = the_data$mom_change / 1000), vjust = 1.5)
 
 
-
-
-
 # Unemployment Number -----------------------------------------------------
 
 
